@@ -1,0 +1,20 @@
+{
+  "name": "express-playground",
+  "version": "1.0.0",
+  "description": "memory leaks testing",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "memory",
+    "leak"
+  ],
+  "author": "Dmytro V. Zemnytskyi",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "prom-client": "^11.2.1"
+  }
+}
