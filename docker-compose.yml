@@ -1,22 +1,23 @@
 version: "3"
 services:
   prom:
-    image: quay.io/prometheus/prometheus:v2.0.0
+    image: prom/prometheus
     volumes:
      - ./monitor/prometheus.yml:/etc/prometheus/prometheus.yml
-    command: "--config.file=/etc/prometheus/prometheus.yml --storage.tsdb.path=/prometheus"
+    command: "--config.file=/etc/prometheus/prometheus.yml"
     ports:
      - 9090:9090
     depends_on:
      - exporter
   exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter
     ports:
-     - "9100:9100"
-#    network_mode: host
+     - 9100:9100
   grafana:
     image: grafana/grafana
+    environment: 
+     - GF_SECURITY_ADMIN_PASSWORD=pragmas0ft
     ports:
-     - "3000:3000"
+     - 3010:3000
     depends_on:
       - prom

@@ -13,6 +13,7 @@
   "author": "Dmytro V. Zemnytskyi",
   "license": "MIT",
   "dependencies": {
+    "eslint": "^5.15.3",
     "express": "^4.16.4",
     "mysql": "^2.16.0",
     "prom-client": "^11.2.1"
