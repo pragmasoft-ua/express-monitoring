@@ -1,0 +1,28 @@
+  --future (Implies all staged features that we want to ship in the not-too-far future)
+        type: bool  default: false
+  --minimal (simplifies execution model to make porting easier (e.g. always use Ignition, never optimize))
+        type: bool  default: false
+  --gc-global (always perform global GCs)
+        type: bool  default: false
+  --trace-gc (print one trace line following each garbage collection)
+        type: bool  default: false
+  --write-protect-code-memory (write protect code memory)
+        type: bool  default: true
+  --detect-ineffective-gcs-near-heap-limit (trigger out-of-memory failure to avoid GC storm near heap limit)
+        type: bool  default: true
+  --gc-stats (Used by tracing internally to enable gc statistics)
+        type: int  default: 0
+  --always-compact (Perform compaction on every full GC)
+        type: bool  default: false
+  --stress-compaction (stress the GC compactor to flush out bugs (implies --force_marking_deque_overflows))
+        type: bool  default: false
+  --expose-gc (expose gc extension)
+        type: bool  default: false
+  --opt (use adaptive optimizations)
+        type: bool  default: true
+  --predictable (enable predictable mode)
+        type: bool  default: false
+  --single-threaded (disable the use of background tasks)
+        type: bool  default: false
+  --single-threaded-gc (disable the use of background gc tasks)
+        type: bool  default: false

@@ -4,9 +4,11 @@ services:
     image: prom/prometheus
     volumes:
      - ./monitor/prometheus.yml:/etc/prometheus/prometheus.yml
+     - prometheus_data:/prometheus
     command: "--config.file=/etc/prometheus/prometheus.yml"
     ports:
      - 9090:9090
+    network_mode: host
     depends_on:
      - exporter
   exporter:
@@ -15,9 +17,14 @@ services:
      - 9100:9100
   grafana:
     image: grafana/grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
     environment: 
-     - GF_SECURITY_ADMIN_PASSWORD=pragmas0ft
+      GF_SECURITY_ADMIN_PASSWORD: pragmas0ft
     ports:
      - 3010:3000
     depends_on:
       - prom
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
