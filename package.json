@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "inspect": "node --minimal --inspect server"
+    "inspect": "node --minimal --expose-gc --gc-global --trace-gc --inspect server"
   },
   "keywords": [
     "memory",
@@ -16,7 +16,8 @@
   "dependencies": {
     "eslint": "^5.15.3",
     "express": "^4.16.4",
-    "mysql": "^2.16.0",
-    "prom-client": "^11.2.1"
+    "mysql2": "^1.6.5",
+    "prom-client": "^11.2.1",
+    "sequelize": "^5.2.3"
   }
 }

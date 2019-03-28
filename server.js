@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 const Prometheus = require('prom-client');
 
 const app = express();
@@ -20,27 +20,31 @@ app.use(function (err, req, res, next) {
 
 const queryStr = 'select 1';
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
 
-    const conn = mysql.createConnection(config);
-
-    conn.query(queryStr, (err, results) => {
-        try {
-            if (err) {
-                console.error('MySQL error', err);
-                res.status(503).send(err.message || 'Service Unavailable\n');
-            } else {
-                let message = 'OK\n';
-                console.debug(message);
-                res.send(message);
-            }
-
-        } finally {
-            conn.end();
-        }
-    });
+    let conn;
+    try {
+        conn = await mysql.createConnection(config);
+        let [rows] = await conn.query(queryStr);
+        let message = 'OK\n';
+        console.debug(rows[0]['1']);
+        res.send(message);
+    } catch (err) {
+        console.error('MySQL error', err);
+        res.status(503).send(err.message || 'Service Unavailable\n');
+    } finally {
+        if (conn) await conn.end();
+    }
 
 });
+
+app.get('/gc', (req, res) => {
+    global.gc();
+    let message = 'GC\n';
+    console.debug(message);
+    res.send(message);
+});
+
 
 const register = Prometheus.register;
 

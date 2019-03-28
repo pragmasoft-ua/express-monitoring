@@ -3,18 +3,19 @@ services:
   prom:
     image: prom/prometheus
     volumes:
-     - ./monitor/prometheus.yml:/etc/prometheus/prometheus.yml
-     - prometheus_data:/prometheus
+      - ./monitor/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
     command: "--config.file=/etc/prometheus/prometheus.yml"
     ports:
-     - 9090:9090
-    network_mode: host
+      - 9090:9090
+    extra_hosts: 
+      - docker:172.17.0.1
     depends_on:
-     - exporter
+      - exporter
   exporter:
     image: prom/node-exporter
     ports:
-     - 9100:9100
+      - 9100:9100
   grafana:
     image: grafana/grafana
     volumes:
@@ -22,7 +23,7 @@ services:
     environment: 
       GF_SECURITY_ADMIN_PASSWORD: pragmas0ft
     ports:
-     - 3010:3000
+      - 3010:3000
     depends_on:
       - prom
 volumes:
