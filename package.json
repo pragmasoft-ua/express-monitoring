@@ -1,6 +1,10 @@
 {
   "name": "express-playground",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=10.15.3",
+    "npm": ">=6.0.0"
+  },
   "description": "memory leaks testing",
   "main": "server.js",
   "scripts": {
@@ -13,6 +17,10 @@
   ],
   "author": "Dmytro V. Zemnytskyi",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pragmasoft-ua/express-monitoring.git"
+  },
   "dependencies": {
     "eslint": "^5.15.3",
     "express": "^4.16.4",

@@ -1,17 +1,27 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
 const Prometheus = require('prom-client');
+const Sequelize = require('sequelize');
 
 const app = express();
 
 const config = {
+    dialect: 'mysql',
+    database: 'abler',
+    username: 'abler',
+    user: 'abler',
     host: '104.155.17.242',
     port: 3306,
-    user: 'abler',
     password: 'abler',
-    database: 'abler',
     connectionLimit: 5,
-};
+    pool: {
+        max: 5,
+        min: 5,
+        idle: 30000
+      }
+  };
+
+const sequelize = new Sequelize(config);
 
 app.use(function (err, req, res, next) {
     console.error(err.stack);
@@ -37,6 +47,22 @@ app.get('/', async (req, res) => {
     }
 
 });
+
+app.get('/sequelize', async (req, res) => {
+
+    try {
+        let result = await sequelize.query(queryStr,{ type: sequelize.QueryTypes.SELECT});
+        let message = 'OK\n';
+        console.debug('Sequelize', queryStr, ' -> ',result[0]['1']);
+        res.send(message);
+    } catch (err) {
+        console.error('Sequelize error', err);
+        res.status(503).send(err.message || 'Service Unavailable\n');
+    }
+
+});
+
+
 
 app.get('/gc', (req, res) => {
     global.gc();
